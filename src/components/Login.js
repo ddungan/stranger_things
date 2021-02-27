@@ -17,11 +17,32 @@ const Login = (props) => {
             return
         }
 
-        onClear(props)
-
         setUsername('')
         setPassword('')
     }
+
+    async function logInUser(username, password) {
+        const response = await fetch('https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/users/register', {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                user: {
+                    username: "${username}",
+                    password: "${password}"
+                }
+                })
+            }
+            );
+            const data = await response.json();
+            
+            console.log(data)
+        }
+
+    const onSubmitClick = () => {
+            logInUser()
+        }
 
     return (
         <form className='add-form'
@@ -40,9 +61,7 @@ const Login = (props) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
             </div>
-
-            <input type='submit'  
-            className='btn'/>
+            <Button color='white' text='Submit' onClick= {onSubmitClick} />
         </form>
     )
 }

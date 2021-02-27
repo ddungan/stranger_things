@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from './Button'
 
 const Register = (props) => {
     const [username, setUsername] = useState('')
@@ -18,15 +19,33 @@ const Register = (props) => {
             return
         }
 
-        if(password /= passwordTwo) {
-            alert("Password Doesn't Match")
-        }
+        setUsername('');
+        setPassword('');
+        setPasswordTwo('');
+    
+    }
 
-        onClear(props)
+async function registerUser(username, password) {
+    const response = await fetch('https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/users/register', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              user: {
+                username: "${username}",
+                password: "${password}"
+              }
+            })
+          }
+        );
+        const data = await response.json();
+        
+        console.log(data)
+    }
 
-        setUsername('')
-        setPassword('')
-        setPasswordTwo('')
+const onSubmitClick = () => {
+        registerUser()
     }
 
     return (
@@ -53,9 +72,7 @@ const Register = (props) => {
                 value={passwordTwo}
                 onChange={(e) => setPasswordTwo(e.target.value)} />
             </div>
-
-            <input type='submit'  
-            className='btn'/>
+            <Button color='white' text='Submit' onClick= {onSubmitClick} />
         </form>
     )
 }

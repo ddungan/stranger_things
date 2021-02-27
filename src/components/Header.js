@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from './Button'
 import Login from './Login'
 import Register from './Register'
@@ -27,17 +26,19 @@ const Header = () => {
     const onRegisterClick = () => { 
         setShowRegister (!showRegister)
         setShowLoginBtn (!showLoginBtn)}
-    
-    useEffect()
 
     return (
     <header className='header'>
         <h1>STRANGER'S THINGS</h1>
         <h3>buy a stranger's things, or sell a stranger things</h3>
+        <div className='buttons'>
         {showLoginBtn && <Button color='white' text='Log In' onClick= {onLoginClick} />}
         {showRegisterBtn && <Button color='white' text='Register' onClick= {onRegisterClick} />}
+        </div>
+        <div className='forms'>
         {showLogin && <Login />}
         {showRegister && <Register />}
+        </div>
     </header>
   )
 }
